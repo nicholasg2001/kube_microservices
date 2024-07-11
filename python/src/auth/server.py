@@ -14,4 +14,9 @@ server.config["MYSQL_PORT"] = os.environ.get("MYSQL_PORT")
 
 @server.route("/login", methods=["POST"])
 def login():
-    auth = request.authorization
+    auth = request.authorization #request needs authentication header (user/pass) 
+    if not auth:
+        return "Missing credentials", 401
+    
+    #check db for user and pass
+    
