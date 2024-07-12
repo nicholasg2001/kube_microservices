@@ -1,8 +1,8 @@
-FROM python3.12.4-slim-bullseye
+FROM python:3.12.4-slim-bullseye
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends --no-install-suggests \
-  build-essentials default-libmysqlclient-dev \
+  build-essential default-libmysqlclient-dev \
   && pip install --no-cache-dir --upgrade pip
 
 WORKDIR /app
