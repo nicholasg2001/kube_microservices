@@ -8,6 +8,7 @@ isort==5.13.2
 itsdangerous==2.2.0
 jedi==0.19.1
 Jinja2==3.1.4
+lazy-object-proxy==1.10.0
 MarkupSafe==2.1.5
 mccabe==0.7.0
 mysqlclient==2.2.4
@@ -15,5 +16,7 @@ parso==0.8.4
 platformdirs==4.2.2
 PyJWT==2.8.0
 pylint==3.2.5
+toml==0.10.2
 tomlkit==0.13.0
 Werkzeug==3.0.3
+wrapt==1.16.0

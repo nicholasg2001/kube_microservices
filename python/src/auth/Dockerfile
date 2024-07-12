@@ -3,6 +3,8 @@ FROM python:3.12.4-slim-bullseye
 RUN apt-get update \
   && apt-get install -y --no-install-recommends --no-install-suggests \
   build-essential default-libmysqlclient-dev \
+  pkg-config \
+  libmariadb-dev \
   && pip install --no-cache-dir --upgrade pip
 
 WORKDIR /app
@@ -13,4 +15,3 @@ COPY . /app
 EXPOSE 5000
 
 CMD ["python3", "server.py"]
-
