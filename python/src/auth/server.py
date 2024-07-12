@@ -35,7 +35,41 @@ def login():
             return createJWT(auth.username, os.environ.get("JWT_SECRET"), True)
     
     else:
-        return "Invalid credentials", 401 
+        return "Invalid credentials", 401  
 
 
 
+@server.route("/validate", method=["POST"])
+def validate():
+    encoded_jwt = request.headers["Authorization"]
+
+    if not encoded_jwt:
+        return "Missing credentials", 401
+
+    encoded_jwt = encoded_jwt.split(" ")[1] #get token from encoded_jwt. Formatted like "Bearer token"
+
+    try:
+        decoded = jwt.decode(
+            encoded_jwt, os.environ.get("JWT_SECRET"), algorithm=["HS256"]
+        )
+    except:
+        return "not authorized", 403
+
+    return decoded, 200
+
+
+
+def createJWT(username, secret, authz):
+    return jwt.encode(
+        {
+            "username": username,
+            "exp": datetime.datetime.now(tz=datetime.timzone.utc) + datetime.timedelta(days=1), #set exp for token for 24 hours
+            "iat": datetime.datetime.now(),
+            "admin": authz,
+        },
+        secret,
+        algorithm="HS256",
+    )
+
+if __name__ == "__main__":
+    server.run(host="0.0.0.0", port=5000) #listen to any IP on host. This makes API available externally
